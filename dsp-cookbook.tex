@@ -4,6 +4,7 @@
 \usepackage{bm}
 \usepackage{makeidx}
 \usepackage{tikz}
+\usepackage{physics}
 \usetikzlibrary{arrows.meta}
 
 %\usepackage[
@@ -78,6 +79,38 @@ We can change the starting point of a wave by adding a phase component. A $\sin$
 
 \index{Amplitude}
 A sine wave swings between $-1$ and $1$. To increase or decrease the amplitude, we multiply with a gain factor $A$.
+
+\subsection{Phasors}
+\index{Phasor}
+A \textit{Phasor} is a complex sinusoid defined my Euler's equation
+\begin{equation}
+    e^{jx} = \cos(x) + j\sin(x),
+\end{equation}
+such that we have
+\begin{align}
+    \cos(x) = \Re{e^{jx}}\\
+    \sin(x) = \Im{e^{jx}}
+\end{align}
+
+\subsection{Digital Signals}
+\index{Digital signals}
+\index{Sampling rate}
+\index{Sampling period}
+Unlike real-world \textit{analog} signals, which are continuous, digital signals are represented by discrete numbers at specific points in time --- a list of numbers. Each number is separated by some amount of time called the \textit{sampling rate}.
+
+If we wish to convert a analog signal to a digital one, we must sample it. This is done by measuring the analog signal one time each \textit{sampling period} ($1/samplerate$). Given the analog signal $x(t)$ then we have the digital signal
+\begin{equation}
+    \xsig = x(nT),
+\end{equation}
+where $T$ is the sampling period and $n$ is the \textit{sample index}. Notice that it is convention to use square brackets for discrete signals and parentheses for continuous signals.
+
+\index(ADC)
+\index{Quantization}
+If we are measuring a real-world signal, we will use an \textit{Analog to Digital Converter (ADC)}. Since computers only have a finite amount of memory, we will need to choose how precise our measurements will be. If we represent out sample with $b$ bits then we will have $2^b$ levels to work with. The process of rounding our sample to the nearest representable number is called \textit{quantization}
+
+\subsection{DSP Systems}
+\index{System}
+A DSP system (or just "a system") is a computer program --- an algorithm --- which takes one or more digital signal and returns one or more digital signals.
 
 \subsection{Causal Systems}
 In systems with memory, we need to agree on what should happen when $n < 0$. Usually we will use $x\left[n\right] = 0 \text{ for } n < 0$. Such a system is said to be \textit{cusal}.
