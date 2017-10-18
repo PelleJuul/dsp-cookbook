@@ -1,9 +1,9 @@
 dsp-cookbook.pdf: dsp-cookbook.tex dsp-cookbook.ind
-	pdflatex dsp-cookbook.tex
+	pdflatex -shell-escape dsp-cookbook.tex
 
 dsp-cookbook.ind: dsp-cookbook.tex
-	pdflatex dsp-cookbook.tex
-	makeindex dsp-cookbook.idx
+	pdflatex -shell-escape dsp-cookbook.tex
+	makeindex -shell-escape dsp-cookbook.idx
 
 .PHONY: clean
 
