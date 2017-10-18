@@ -1,23 +1,25 @@
-\documentclass[openany]{book}
+\documentclass{article}
+\usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage{makeidx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 
-\usepackage[
-  top=1.25in,
-  bottom=1.25in,
-  left=1.25in,
-  right=1.25in,
-  bindingoffset=0.25in,
-  heightrounded,
-]{geometry}
+%\usepackage[
+%  top=1.25in,
+%  bottom=1.25in,
+%  left=1.25in,
+%  right=1.25in,
+%  bindingoffset=0.25in,
+%  heightrounded,
+%]{geometry}
 
 \def\lsqb{\left[}
 \def\rsqb{\right]}
 \def\sqb#1{\lsqb #1 \rsqb}
 \def\xsig{x\sqb{n}}
+\def\ysig{y\sqb{n}}
 
 \makeindex
 \begin{document}
@@ -27,8 +29,8 @@
 \maketitle
 \tableofcontents
 
-\chapter{Theory}
-\section{Sine Wave}
+\section{Theory}
+\subsection{Sine Wave}
 \index{Sine waves}
 \index{Sin}
 \index{Cos}
@@ -38,7 +40,6 @@ The general equation of is
     A\sin(2\pi t f + \theta),
 \end{equation}
 where
-
 \begin{description}
     \item[$A$] is the amplitude of the wave.
     \item[$\sin$] is the $\sin$ function.
@@ -78,12 +79,12 @@ We can change the starting point of a wave by adding a phase component. A $\sin$
 \index{Amplitude}
 A sine wave swings between $-1$ and $1$. To increase or decrease the amplitude, we multiply with a gain factor $A$.
 
-\section{Causal Systems}
+\subsection{Causal Systems}
 In systems with memory, we need to agree on what should happen when $n < 0$. Usually we will use $x\left[n\right] = 0 \text{ for } n < 0$. Such a system is said to be \textit{cusal}.
 
 If we have a system where $x\left[n\right] \neq 0 \text{ for } n < 0$, then the system is said to be \textit{non-causal}.
 
-\section{Difference Equations}
+\subsection{Difference Equations}
 The general form of a difference equation is
 
 \begin{equation}
@@ -101,7 +102,7 @@ Also written as
 
 Where the $y\sqb{\cdot}$ components determine the recursive (feedback) characteristic, and the $x\sqb{\cdot}$ components the non-recursive characteristic.
 
-\section{Linear Time-Invariant System}
+\subsection{Linear Time-Invariant System}
 \index{Linear Time-Invariant System}
 \index{LTI|see {Linear Time-Invariant System}}
 
@@ -126,7 +127,7 @@ for some delay $L$ --- a delay in the input signal will cause a corresponding de
 
 A system is LTI if all of its subcomponents are LTIs.
 
-\section{Impulse Response}
+\subsection{Impulse Response}
 \index{Impulse response}
 An impulse is a short spike in amplitude. The ideal impulse signal is defined by
 
@@ -165,7 +166,7 @@ A system has \textit{infinte impulse reponse} (IIR) if it contains recursive com
 \index{Unstable}
 Some IIR systems will converge to a state of near-zero. Such systems are said to be \textit{stable}. IIR systems can also be \textit{unstable}, which means that their output will be non-convergent (i.e. blow up).
 
-\section{Convolution}
+\subsection{Convolution}
 \index{Convolution}
 The \textit{convolution} of two signals $\xsig$ and $h\sqb{n}$ is defined as
 \begin{equation}
@@ -191,23 +192,65 @@ as well as distributive
     g\sqb{x} * (\xsig + h\sqb{n}) = (g\sqb{x} * \xsig) + (g\sqb{x} *  h\sqb{n}).
 \end{equation}
 
-\section{Frequency Response}
-\index{Frequency response}
-\index{Bode diagram}
-The frequency response of a system describes how it responds to signals of a specific frequency, in terms of magnitude and phase. The frequency response of a system is usually shown as a plot with frequency on the x-axis and amplitude on the y-axis. If the plot is presented with a logarithmic frequency scale, it is sometimes called a \textit{Bode} diagram.
-
-Using the equation
-\begin{equation}
-    H(e^{j\theta}) = \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\sum_{k=1}^{N} a_k e^{-j\theta k}},
-\end{equation}
-we get a complex number which describes the phase and magnitude response for a signal at the digital frequency $\theta$. The magnitude $\|H(e^{j\theta})\|$ is the gain at that frequency. The angle $\angle H(e^{j\theta})$ is the \textit{phase shift} at that frequency.
-
+\subsection{Digital Frequency}
 \index{Digital frequency}
 Digital frequency is defined as
 \begin{equation}
     \theta = 2\pi f T,
 \end{equation}
 where $f$ is the frequency in $Hz$ and $T$ is the sampling period. This means that $\theta=0$ denotes DC, $\theta=\pi$ the Nyquist frequency ($1/2 * samplerate$), and $\theta=2\pi$ the sampling frequency.
+
+\subsection{Frequency Response}
+\index{Frequency response}
+\index{Bode diagram}
+The frequency response of a system describes how it responds to signals of a specific frequency, in terms of magnitude and phase. The frequency response of a system is usually shown as a plot with frequency on the x-axis and amplitude on the y-axis. If the plot is presented with a logarithmic frequency scale, it is sometimes called a \textit{Bode} diagram.
+
+Using the equation
+\def\hfun{H(e^{j\theta})}
+\begin{equation}
+    \hfun = \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\sum_{k=1}^{N} a_k e^{-j\theta k}},
+\end{equation}
+we get a complex number which describes the phase and magnitude response for a signal at the digital frequency $\theta$. The magnitude $\|\hfun\|$ is the gain at that frequency. The angle $\angle \hfun$ is the \textit{phase shift} at that frequency.
+
+The $\hfun$ term is derived by first selecting the input signal
+\begin{equation}
+    \xsig = e^{j\theta n},
+\end{equation}
+and then convolving with the impulse response of our system
+\def\convsum{\sum_{m=-\infty}^{\infty}}
+\begin{align}
+    \ysig &= \convsum h\sqb{m} x\sqb{n-m} = \convsum h\sqb{m} e^{j\theta(n-m)} \\
+          &= e^{j\theta(n)} \convsum h\sqb{m} e^{j\theta m} = \xsig \convsum h\sqb{m} e^{j\theta m} \\
+          &= \xsig \hfun,
+\end{align}
+so we have
+\begin{equation}
+    \hfun = \convsum h\sqb{m} e^{j\theta m},
+\end{equation}
+and since
+\begin{equation}
+    \ysig = \xsig \hfun,
+\end{equation}
+we have
+\begin{equation}
+    \hfun = \frac{\ysig}{\xsig}
+\end{equation}
+
+To get to our final definition of $\hfun$ we first not that
+\begin{align}
+    \ysig &= \convsum h\sqb{m} x\sqb{n-m} \\
+    \ysig &= \xsig \hfun = e^{j\theta n} \hfun
+\end{align}
+And then rearranging
+\begin{align}
+    e^{j\theta n} \hfun &= \sum_{k=1}^{N} a_k e^{j\theta (n-k)} \hfun + \sum_{k=0}^{L} b_k e^{j\theta(n-k)} \\
+    e^{j\theta n} \hfun &= e^{j\theta n} \left( \sum_{k=1}^{N} a_k e^{-j\theta k} \hfun + \sum_{k=0}^{L} b_k e^{-j\theta k} \right)\\
+    \hfun &= \sum_{k=1}^{N} a_k e^{-j\theta k} \hfun + \sum_{k=0}^{L} b_k e^{-j\theta k} \\
+    1 &= \sum_{k=1}^{n} a_k e^{-j\theta k} + \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\hfun} \\
+    1 - \sum_{k=1}^{n} a_k e^{-j\theta k} &= \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\hfun} \\
+    \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{1 - \sum_{k=1}^{n} a_k e^{-j\theta k}} &= \frac{1}{\hfun}\\
+    \hfun &= \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{1 - \sum_{k=1}^{n} a_k e^{-j\theta k}}
+\end{align}
 
 
 
