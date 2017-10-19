@@ -282,9 +282,48 @@ And then rearranging
     1 &= \sum_{k=1}^{n} a_k e^{-j\theta k} + \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\hfun} \\
     1 - \sum_{k=1}^{n} a_k e^{-j\theta k} &= \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\hfun} \\
     \frac{1 - \sum_{k=1}^{n} a_k e^{-j\theta k}}{\sum_{k=0}^{L} b_k e^{-j\theta k}} &= \frac{1}{\hfun}\\
-    \hfun &= \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{1 - \sum_{k=1}^{n} a_k e^{-j\theta k}}
+    \hfun &= \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{1 - \sum_{k=1}^{n} a_k e^{-j\theta k}} \label{eq:frequency_response}
 \end{align}
 
+\subsection{Z-transform}
+\index{Z-transform}
+The $z$-transform is a way of analysing the frequency response of a system. It is defined by
+\begin{equation}
+    Z(\xsig) = X(z) = \sum_{n=-\infty}^{\infty} \xsig z^{-n},
+\end{equation}
+and has the shifting property
+\begin{equation}
+    Z(x\sqb{n-m}) = z^{-m} \sum_{n=-\infty}^{\infty} x\sqb{n} z^{-n} = z^{-m} X(z).
+\end{equation}
+
+If we apply the $z$-transform to the general difference equation we get
+\begin{align}
+    \ysig = \sum_{k=1}^N a_k y\sqb{n-k} + \sum_{k=0}^L b_k x\sqb{n-k} \\
+    Y(z) = \sum_{k=1}^N a_k z^{-k} Y(z) + \sum_{k=0}^L b_k z^{-k} X(z) \\
+\end{align}
+from which we arrive at
+\index{Transfer function}
+\begin{equation}
+    \label{eq:ztransform}
+    \frac{Y(z)}{X(z)} = \frac{\sum_{k=0}^L b_k z^{-k}}{1 - \sum_{k=1}^N a_k z^{-k}},
+\end{equation}
+which is called the \textit{transfer function}. Note that setting $z = e^{j\theta}$ makes the above equation equal to the frequency response(Eq. \ref{eq:frequency_response}).
+
+\index{Poles}
+\index{Zeros}
+We use the above equation to solve for \textit{poles} and \textit{zeros} of the system. The zeros are found by solving the equation
+\begin{equation}
+    \sum_{k=0}^L b_k z^{-k} = 0,
+\end{equation}
+which is the numerator of Eq. \ref{eq:ztransform} --- when this is zero, the system response will be zero.
+
+To find the poles, we solve for the numerator like
+\begin{equation}
+    1 - \sum_{k=1}^N a_k z^{-k} = 0,
+\end{equation}
+which gives us the places where the ratio explodes into infinity.
+
+In reality the poles and zeros will cancel each other out by different amounts based on the input frequency. Therefore, the response will seldom actually be zero or infinity.
 
 
 
