@@ -1,8 +1,8 @@
-dsp-cookbook.pdf: dsp-cookbook.tex dsp-cookbook.ind dsp-cookbook.bib
+dsp-cookbook.pdf: dsp-cookbook.tex dsp-cookbook.ind dsp-cookbook.blg
 	pdflatex dsp-cookbook.tex
 	pdflatex dsp-cookbook.tex
 
-dsp-cookbook.bib: dsp-cookbook.tex
+dsp-cookbook.blg: dsp-cookbook.tex dsp-cookbook.bib
 	pdflatex dsp-cookbook.tex
 	bibtex dsp-cookbook
 
