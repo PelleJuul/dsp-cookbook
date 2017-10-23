@@ -350,7 +350,7 @@ For calculating the coefficients of these filters we will need
 where $f_c$ is the filter center frequency and $f_s$ is the sample rate.
 
 \subsubsection{Low-pass Filter}
-\index{Low-pass filter}
+\index{Low-pass filter (biquad)}
 Low-pass biquad filters are designed by selecting a cutoff frequency $f_c$, and a $Q$ factor which controls the gain around $f_c$.
 When $Q = 1/\sqrt 2$ the filter will be flat around $f_c$ --- values above or below will cause amplification or attenuation.
 
@@ -359,6 +359,21 @@ The coefficients are then calculated by:
     b_0 &= \frac{K^2Q}{K^2Q + K + Q}\\
     b_1 &= \frac{2K^2Q}{K^2Q + K + Q}\\
     b_2 &= b_0\\
+    a_1 &= \frac{2Q(K^2 - 1)}{K^2Q + K + Q}\\
+    a_2 &= \frac{K^2Q - K + Q}{K^2Q + K + Q}
+\end{align}
+\cite{Zolzer:2011}
+
+\subsubsection{High-pass Filter}
+\index{High-pass filter (biquad)}
+High-pass biquad filters are designed by selecting a cutoff frequency $f_c$, and a $Q$ factor which controls the gain around $f_c$.
+When $Q = 1/\sqrt 2$ the filter will be flat around $f_c$ --- values above or below will cause amplification or attenuation.
+
+The coefficients are then calculated by:
+\begin{align}
+    b_0 &= \frac{K^2Q}{K^2Q + K + Q}\\
+    b_1 &= - \frac{2Q}{K^2Q + K + Q}\\
+    b_2 &= \frac{Q}{K^2Q + K + Q}\\
     a_1 &= \frac{2Q(K^2 - 1)}{K^2Q + K + Q}\\
     a_2 &= \frac{K^2Q - K + Q}{K^2Q + K + Q}
 \end{align}
