@@ -327,6 +327,63 @@ which gives us the places where the ratio explodes into infinity.
 In reality the poles and zeros will cancel each other out by different amounts based on the input frequency. Therefore, the response will seldom actually be zero or infinity.
 
 \section{Recipes}
+\subsection{Echo and Delay}
+\index{Echo effect}
+\index{Delay effect}
+An \textit{echo} effect, in its simplest form, is achieved by mixing a signal with a delayed version of itself
+\begin{equation}
+	\ysig = x\sqb{n} + b_m x\sqb{n - m},
+\end{equation}
+where $m$ is the delay amount in samples and $b_m$ the amplitude of the echo.
+
+The above equation will only give one reflection, if you want multiple reflections, you will need a feedback component:
+\begin{equation}
+	\ysig = x\sqb{n} + a_m y\sqb{n - m},
+\end{equation}
+
+\index{Dampening}
+You can get creative with delay effects by adding more delay taps, or applying effects to the delayed components --- a low-pass filter can be used to achieve a dampening effect.
+
+\subsection{Chorus}
+\index{Chorus effect}
+The \text{chorus effect} is achieved by mixing a signal with a delayed version of itself, while varying the delay. The delay usually varies between 20 and 50 ms. This causes a doubling effect, like when multiple instruments are playing together.
+
+The basic effect looks like
+\begin{equation}
+	\ysig = x\sqb{n} + x\sqb{n - g\sqb{n}}
+\end{equation}
+where $g\sqb{n}$ is the function determining the delay for sample $n$.
+
+You can easily get creative with the chorus effect by using feedback instead of delay, and by adding multiple delays.
+
+\subsection{Flanging}
+\index{Flanging}
+The \text{flanger effect} is achieved by mixing a signal with a delayed version of itself, while varying the delay. The delay is usually below 20 ms. This creates constructive and destructive interference at specific frequencies, resulting in a swooshing sound.
+
+The basic effect looks like
+\begin{equation}
+	\ysig = x\sqb{n} + x\sqb{n - g\sqb{n}}
+\end{equation}
+where $g\sqb{n}$ is the function determining the delay for sample $n$.
+
+You can easily get creative with the flanger effect by using feedback instead of delay, and by adding multiple delays.
+
+\subsection{Ring Modulation and Amplitude Modulation}
+\index{Ring modulation}
+\index{Amplitude modulation}
+\index{AM|see {Amplitude modulation}}
+Ring modulation is a simple but powerful effect achieved by multiplying two signals,
+\begin{equation}
+	\ysig = x_m\sqb{n} \cdot x_c\sqb{n},
+\end{equation}
+where $x_m\sqb{n}$ is the modulator signal, $x_c\sqb{n}$ is the carrier signal. 
+
+Amplitude modulation (AM) is a related effect, achieved by mixing some of the modulated signal back into the output,
+\begin{equation}
+	\ysig = A_m \cdot x_m\sqb{n} \cdot x_c\sqb{n} + A_c \cdot x_c\sqb{n},
+\end{equation}
+where $A_m$ is the amplitude of the modulated signal, and $A_c$ is the amplitude of the carrier signal.
+
 \subsection{Biquad Filters}
 \index{Biquad filter}
 \index{Second order filter}
