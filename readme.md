@@ -22,6 +22,8 @@ $ makeindex dsp-cookbook idx
 $ pdflatex dsp-cookbook.tex
 ```
 
+Lastly, you can view the document through [ShareLatex](https://www.sharelatex.com/project/59edb2810c9bbf1a840564fc).
+
 ## Writing Style
 
 * In titles, the first and last words should be capitalized. Words less than four letters should not be capitalized.
