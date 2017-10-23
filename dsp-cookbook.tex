@@ -5,6 +5,7 @@
 \usepackage{makeidx}
 \usepackage{tikz}
 \usepackage{physics}
+\usepackage{cite}
 \usetikzlibrary{arrows.meta}
 
 %\usepackage[
@@ -325,9 +326,47 @@ which gives us the places where the ratio explodes into infinity.
 
 In reality the poles and zeros will cancel each other out by different amounts based on the input frequency. Therefore, the response will seldom actually be zero or infinity.
 
+\section{Recipes}
+\subsection{Biquad Filters}
+\index{Biquad filter}
+\index{Second order filter}
+Biquad filters are a general form of second-order two pole, two zeros filters. They have the difference equation
+\begin{equation}
+    H(z) = \frac{b_0 + b_1 z^{-1} + b_2 z ^{-2}}{1 + a_1 z_{-1} + a_2 z_{-2}}.
+\end{equation}
 
+If we multiply this by $z^2 / z^2$ we get 
+\begin{equation}
+    H(z) = \frac{b_0 z^2 + b_1 z + b_2}{z^2 + a_1 z + a_2 z},
+\end{equation}
+and see that both the numerator and denominator are quadratic equations, hence the name.
 
+Biquad filters can be used to implement many common types of filter including low-pass, high-pass, bandpass, band-reject and all-pass.
+
+For calculating the coefficients of these filters we will need
+\begin{equation}
+    K = \tan (\pi f_c / f_s),
+\end{equation}
+where $f_c$ is the filter center frequency and $f_s$ is the sample rate.
+
+\subsubsection{Low-pass Filter}
+\index{Low-pass filter}
+Low-pass biquad filters are designed by selecting a cutoff frequency $f_c$, and a $Q$ factor which controls the gain around $f_c$.
+When $Q = 1/\sqrt 2$ the filter will be flat around $f_c$ --- values above or below will cause amplification or attenuation.
+
+The coefficients are then calculated by:
+\begin{align}
+    b_0 &= \frac{K^2Q}{K^2Q + K + Q}\\
+    b_1 &= \frac{2K^2Q}{K^2Q + K + Q}\\
+    b_2 &= b_0\\
+    a_1 &= \frac{2Q(K^2 - 1)}{K^2Q + K + Q}\\
+    a_2 &= \frac{K^2Q - K + Q}{K^2Q + K + Q}
+\end{align}
+\cite{Zolzer:2011}
+
+\section{References}
+\bibliography{dsp-cookbook}{}
+\bibliographystyle{apalike}
 
 \printindex
-
 \end{document}
