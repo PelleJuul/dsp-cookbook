@@ -43,7 +43,7 @@
 
 The general equation of is
 \begin{equation}
-    A\sin(2\pi t f + \theta),
+    A\sin(2\pi f t + \theta)
 \end{equation}
 where
 \begin{description}
@@ -52,10 +52,10 @@ where
     \item[$2\pi$] normalizes the period of the $\sin$ function to $1$.
     \item[$t$] is time.
     \item[$f$] is the frequency of the wave.
-    \item[$\theta$] is the phase offset of the wave.
+    \item[$\theta$] is the initial phase of the wave.
 \end{description}
 
-The $\sin$ and $\cos$ functions are defined using the unit circle. Given a variable $t$ we go $t$ radians along the unit circle \footnote{A unit circle is simply a circle with a radius of 1}. The point at $t$ radians will have coordinates $(\cos(t), \sin(t))$ --- $\cos(t)$ is the projection of the point onto the x-axis, $\sin(t)$ is the projection onto the y-axis.
+The $\sin$ and $\cos$ functions are defined using the unit circle. Given a variable $t$ we go $t$ radians along the unit circle \footnote{A unit circle is simply a circle with a radius of 1.}. The point at $t$ radians will have coordinates $(\cos(t), \sin(t))$ --- $\cos(t)$ is the projection of the point onto the x-axis, $\sin(t)$ is the projection onto the y-axis.
 
 \begin{figure}[h]
 \centering
@@ -72,15 +72,15 @@ The $\sin$ and $\cos$ functions are defined using the unit circle. Given a varia
 \index{period}
 Sinusoids have a period of $2 \pi$ (a full arc), thus if we multiply $t$ by $2\pi$ to get $\sin(2 \pi t)$, we will get a period of $1$. If $t$ is time in seconds, we will have one period per second.
 
-To get more or less periods per second we multiply $t$ by that amount. For example $\sin(2 \pi t 440)$ has 440 periods per second.
+To get more or less periods per second we multiply $t$ by that amount. For example $\sin(2 \pi 440 t)$ has 440 periods per second.
 
 \index{Frequency}
 \index{Hertz}
 \index{Hz|see {Hertz}}
-Periods per second is measured in $Hertz$ which has the unit $1/s$, which is also called the frequency of a wave. To calculate the period of a sine wave at a specific frequency $f$, you use $1/f$, e.g. a sine wave at $440Hz$ will have a period of $1/f=0.002s$.
+Periods per second is measured in $Hertz$ which has the unit $1/s$, which is also called the frequency of a wave. To calculate the period of a sine wave at a specific frequency $f$, you use $1/f$, e.g. a sine wave at $440\ Hz$ will have a period of $1/f=0.002\ s$.
 
 \index{Phase}
-We can change the starting point of a wave by adding a phase component. A $\sin$ wave with a phase of $\pi/2$ is equivalent to a $\cos$ wave. The phase component is usually written as $\theta$
+We can change the starting point of a wave by adding an initial phase. A $\sin$ wave with a phase of $\pi/2$ is equivalent to a $\cos$ wave. The initial phase is usually indicated by $\theta$.
 
 \index{Amplitude}
 A sine wave swings between $-1$ and $1$. To increase or decrease the amplitude, we multiply with a gain factor $A$.
@@ -89,7 +89,7 @@ A sine wave swings between $-1$ and $1$. To increase or decrease the amplitude, 
 \index{Phasor}
 A \textit{Phasor} is a complex sinusoid defined my Euler's equation
 \begin{equation}
-    e^{jx} = \cos(x) + j\sin(x),
+    e^{jx} = \cos(x) + j\sin(x)
 \end{equation}
 such that we have
 \begin{align}
@@ -101,24 +101,26 @@ such that we have
 \index{Digital signals}
 \index{Sampling rate}
 \index{Sampling period}
-Unlike real-world \textit{analog} signals, which are continuous, digital signals are represented by discrete numbers at specific points in time --- a list of numbers. Each number is separated by some amount of time called the \textit{sampling rate}.
+Unlike real-world \textit{analog} signals, which are continuous, digital signals are represented by discrete numbers at specific points in time -- a list of numbers. Each number is separated by some amount of time called the \textit{sampling period}.
 
-If we wish to convert a analog signal to a digital one, we must sample it. This is done by measuring the analog signal one time each \textit{sampling period} ($1/samplerate$). Given the analog signal $x(t)$ then we have the digital signal
+If we wish to convert a analog signal to a digital one, we must sample it. This is done by measuring the analog signal one time each \textit{sampling period} ($1/samplerate$). Given the analog signal $x(t)$ then we get the digital signal
+
 \begin{equation}
-    \xsig = x(nT),
+    \xsig = x(nT)
 \end{equation}
+
 where $T$ is the sampling period and $n$ is the \textit{sample index}. Notice that it is convention to use square brackets for discrete signals and parentheses for continuous signals.
 
-\index(ADC)
+\index{ADC}
 \index{Quantization}
-If we are measuring a real-world signal, we will use an \textit{Analog to Digital Converter (ADC)}. Since computers only have a finite amount of memory, we will need to choose how precise our measurements will be. If we represent out sample with $b$ bits then we will have $2^b$ levels to work with. The process of rounding our sample to the nearest representable number is called \textit{quantization}
+If we are measuring a real-world signal, we will use an \textit{Analog-to-Digital Converter (ADC)}. Since computers only have a finite amount of memory, we will need to choose how precise our measurements will be. If we represent out sample with $b$ bits then we will have $2^b$ levels to work with. The process of rounding our sample to the nearest representable number is called \textit{quantization}.
 
 \subsection{DSP Systems}
 \index{System}
-A DSP system (or just "a system") is a computer program --- an algorithm --- which takes one or more digital signal and returns one or more digital signals.
+A DSP system (or just ''a system'') is a computer program -- an algorithm -- which takes one (or more) digital signals and returns one (or more) digital signals.
 
 \subsection{Causal Systems}
-In systems with memory, we need to agree on what should happen when $n < 0$. Usually we will use $x\left[n\right] = 0 \text{ for } n < 0$. Such a system is said to be \textit{cusal}.
+In systems with memory, we need to agree on what should happen when $n < 0$. Usually we will use $x\left[n\right] = 0 \text{ for } n < 0$. Such a system is said to be \textit{causal}.
 
 If we have a system where $x\left[n\right] \neq 0 \text{ for } n < 0$, then the system is said to be \textit{non-causal}.
 
@@ -128,14 +130,14 @@ The general form of a difference equation is
 \begin{equation}
 \begin{split}
     y\sqb{n} = a_1 y\sqb{n - 1} + a_2 y\sqb{n-2} + \dots + a_N y\sqb{n-N} + \\
-        b_0 x\sqb{n} + b_1 x\sqb{n - 1} + b_2 x\sqb{n - 2} + \dots + b_L\sqb{n - L}.
+        b_0 x\sqb{n} + b_1 x\sqb{n - 1} + b_2 x\sqb{n - 2} + \dots + b_L\sqb{n - L}
 \end{split}
 \end{equation}
 
 Also written as
 
 \begin{equation}
-    y\sqb{n} = \sum_{k=1}^N a_k y\sqb{n - k} + \sum_{k=0}^L b_k x\sqb{n - k}.
+    y\sqb{n} = \sum_{k=1}^N a_k y\sqb{n - k} + \sum_{k=0}^L b_k x\sqb{n - k}
 \end{equation}
 
 Where the $y\sqb{\cdot}$ components determine the recursive (feedback) characteristic, and the $x\sqb{\cdot}$ components the non-recursive characteristic.
@@ -144,7 +146,7 @@ Where the $y\sqb{\cdot}$ components determine the recursive (feedback) character
 \index{Linear Time-Invariant System}
 \index{LTI|see {Linear Time-Invariant System}}
 
-A system $T(x\sqb{n})$ is \textit{linear time-invariant} (LTI) is it is both linear and time-invariant.
+A system $T(x\sqb{n})$ is \textit{linear time-invariant} (LTI) if it satisfies both linearity and time-invariancy properties.
 
 A system is linear if it supports the scalability property \index{Linearity property}
 \begin{equation}
@@ -152,7 +154,7 @@ A system is linear if it supports the scalability property \index{Linearity prop
 \end{equation}
 As well as the superposition property \index{Superposition property}
 \begin{gather}
-    T(x_3\sqb{n}) = T(x_1\sqb{n} + x_2\sqb{n}) =  T(x_1\sqb{n}) + T(x_2\sqb{n}), 
+    T(x_3\sqb{n}) = T(x_1\sqb{n} + x_2\sqb{n}) =  T(x_1\sqb{n}) + T(x_2\sqb{n})
 \end{gather}
 where $x_3\sqb{n} = x_1\sqb{n} + x_2\sqb{n}$.
 
@@ -174,100 +176,100 @@ An impulse is a short spike in amplitude. The ideal impulse signal is defined by
         \begin{cases}
             1, & \text{if } n = 0 \\
             0, & \text{otherwise}
-        \end{cases}.
+        \end{cases}
 \end{equation}
 
-The \textit{impulse response} of a system is how it reacts to an input of $\xsig = \delta\sqb{n}$. In this
-case the ouput of the system is normally denoted $h\sqb{n}$.
+The \textit{impulse response} of a system is defined as the system output for an input of $\xsig = \delta\sqb{n}$. In this
+case the output of the system is normally denoted $h\sqb{n}$.
 
-LTI systems can be described completely by their impulse responses. To obtain the output of a system based on an impulse response, one should convolute the input signal with the impulse response
+LTI systems can be described completely by their impulse responses. To obtain the output of a system based on an impulse response, one should convolve the input signal with the impulse response
 \begin{equation}
-    T(\xsig) = \xsig * h_T\sqb{n}.
+    T(\xsig) = \xsig * h_T\sqb{n}
 \end{equation}
 
 \index{Finite impulse repsonse}
 \index{FIR|see {Finite impulse repsonse}}
-A system has \textit{finite impulse response} (FIR) if it does not contain any recursive components. In that case the impulse response is determined by
+A system has a \textit{finite impulse response} (FIR) if it does not contain any recursive components. In that case the impulse response is determined by
 \begin{equation}
-    h\sqb{n} = T(\delta\sqb{n}) = \sum_{k = 0}^L b_k \delta\sqb{n - k}.
+    h\sqb{n} = T(\delta\sqb{n}) = \sum_{k = 0}^L b_k \delta\sqb{n - k}
 \end{equation}
 The impulse response of FIR systems will always converge to zero.
 
 \index{Infinte impulse response}
-\index{IIR|see {Infinte impulse response}}
-A system has \textit{infinte impulse reponse} (IIR) if it contains recursive components. In that case the impulse response is determined by
+\index{IIR|see {Infinite impulse response}}
+A system has an \textit{infinite impulse reponse} (IIR) if it contains recursive components. In that case the impulse response is determined by
 \begin{equation}
-    h\sqb{n} = T(\delta\sqb{n}) = \sum_{k=1}^N a_k h\sqb{n - k} + \sum_{k = 0}^L b_k \delta\sqb{n - k}.
+    h\sqb{n} = T(\delta\sqb{n}) = \sum_{k=1}^N a_k h\sqb{n - k} + \sum_{k = 0}^L b_k \delta\sqb{n - k}
 \end{equation}
 \index{Stability}
 \index{Stable}
 \index{Unstable}
-Some IIR systems will converge to a state of near-zero. Such systems are said to be \textit{stable}. IIR systems can also be \textit{unstable}, which means that their output will be non-convergent (i.e. blow up).
+Some IIR systems will converge to a state of near-zero. Such systems are said to be \textit{stable}. IIR systems can also be \textit{unstable}, which means that their output will be divergent (i.e. will blow up to infinity).
 
 \subsection{Convolution}
 \index{Convolution}
 The \textit{convolution} of two signals $\xsig$ and $h\sqb{n}$ is defined as
 \begin{equation}
-    \xsig * h\sqb{n} = \sum_{m = -\infty}^{m = \infty} x\sqb{n - m}h\sqb{m}.
+    \xsig * h\sqb{n} = \sum_{m = -\infty}^{m = \infty} x\sqb{n - m}h\sqb{m}
 \end{equation}
 
-In reality $m$ will be bounded by the sizes of the signals. If $\xsig$ has size $N$ and $h\sqb{n}$ size $M$, then $m$ should be within $0$ and $M$, since no samples is defined before $0$, and no smaples in $h\sqb{x}$ are defined after $M$. The equation is then
+In practice, $m$ will be bounded by the sizes of the signals. If $\xsig$ has size $N$ and $h\sqb{n}$ size $M$, then $m$ should be within $0$ and $M$, since no samples is defined before $0$, and no samples in $h\sqb{x}$ are defined after $M$. The equation is then
 \begin{equation}
-    \xsig * h\sqb{n} = \sum_{m = 0}^{M} x\sqb{n - m}h\sqb{m}.
+    \xsig * h\sqb{n} = \sum_{m = 0}^{M} x\sqb{n - m}h\sqb{m}
 \end{equation}
-The result will be defined for $n$ in $0 \leq n < N + M$.
+The result will be defined for $n$ in $0 \leq n < N + M - 1$.
 
 Convolution is commutative, meaning that
 \begin{equation}
-    \xsig * h\sqb{n} = h\sqb{n} * \xsig.
+    \xsig * h\sqb{n} = h\sqb{n} * \xsig
 \end{equation}
 It is also associative, which means that
 \begin{equation}
-    g\sqb{x} * (\xsig * h\sqb{n}) = (g\sqb{x} * \xsig) * h\sqb{n},
+    g\sqb{x} * (\xsig * h\sqb{n}) = (g\sqb{x} * \xsig) * h\sqb{n}
 \end{equation}
 as well as distributive
 \begin{equation}
-    g\sqb{x} * (\xsig + h\sqb{n}) = (g\sqb{x} * \xsig) + (g\sqb{x} *  h\sqb{n}).
+    g\sqb{x} * (\xsig + h\sqb{n}) = (g\sqb{x} * \xsig) + (g\sqb{x} *  h\sqb{n})
 \end{equation}
 
 \subsection{Digital Frequency}
 \index{Digital frequency}
 Digital frequency is defined as
 \begin{equation}
-    \theta = 2\pi f T,
+    \Omega = 2\pi f T,
 \end{equation}
-where $f$ is the frequency in $Hz$ and $T$ is the sampling period. This means that $\theta=0$ denotes DC, $\theta=\pi$ the Nyquist frequency ($1/2 * samplerate$), and $\theta=2\pi$ the sampling frequency.
+where $f$ is the analog frequency in $Hz$ and $T$ is the sampling period. This means that $\Omega=0$ denotes DC, $\Omega=\pi$ the Nyquist frequency ($1/2 * samplerate$), and $\Omega=2\pi$ the sampling frequency.
 
 \subsection{Frequency Response}
 \index{Frequency response}
 \index{Bode diagram}
-The frequency response of a system describes how it responds to signals of a specific frequency, in terms of magnitude and phase. The frequency response of a system is usually shown as a plot with frequency on the x-axis and amplitude on the y-axis. If the plot is presented with a logarithmic frequency scale, it is sometimes called a \textit{Bode} diagram.
+The frequency response of a system describes the frequency content of its impulse response in terms of magnitude and phase. The frequency response of a system is usually shown as a plot with frequency on the x-axis and amplitude on the y-axis. If the plot is presented with a logarithmic frequency scale, it is sometimes called a \textit{Bode} diagram.
 
 Using the equation
 \def\hfun{H(e^{j\theta})}
 \begin{equation}
-    \hfun = \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\sum_{k=1}^{N} a_k e^{-j\theta k}},
+    \hfun = \frac{\sum_{k=0}^{L} b_k e^{-j\theta k}}{\sum_{k=1}^{N} a_k e^{-j\theta k}}
 \end{equation}
 we get a complex number which describes the phase and magnitude response for a signal at the digital frequency $\theta$. The magnitude $\|\hfun\|$ is the gain at that frequency. The angle $\angle \hfun$ is the \textit{phase shift} at that frequency.
 
 The $\hfun$ term is derived by first selecting the input signal
 \begin{equation}
-    \xsig = e^{j\theta n},
+    \xsig = e^{j\theta n}
 \end{equation}
 and then convolving with the impulse response of our system
 \def\convsum{\sum_{m=-\infty}^{\infty}}
 \begin{align}
     \ysig &= \convsum h\sqb{m} x\sqb{n-m} = \convsum h\sqb{m} e^{j\theta(n-m)} \\
           &= e^{j\theta(n)} \convsum h\sqb{m} e^{j\theta m} = \xsig \convsum h\sqb{m} e^{j\theta m} \\
-          &= \xsig \hfun,
+          &= \xsig \hfun
 \end{align}
 so we have
 \begin{equation}
-    \hfun = \convsum h\sqb{m} e^{j\theta m},
+    \hfun = \convsum h\sqb{m} e^{j\theta m}
 \end{equation}
 and since
 \begin{equation}
-    \ysig = \xsig \hfun,
+    \ysig = \xsig \hfun
 \end{equation}
 we have
 \begin{equation}
@@ -398,7 +400,7 @@ Ring modulation is a simple but powerful effect achieved by multiplying two sign
 \begin{equation}
 	\ysig = x_m\sqb{n} \cdot x_c\sqb{n},
 \end{equation}
-where $x_m\sqb{n}$ is the modulator signal, $x_c\sqb{n}$ is the carrier signal. 
+where $x_m\sqb{n}$ is the modulator signal, $x_c\sqb{n}$ is the carrier signal.
 
 Amplitude modulation (AM) is a related effect, achieved by mixing some of the modulated signal back into the output,
 \begin{equation}
@@ -414,7 +416,7 @@ Biquad filters are a general form of second-order two pole, two zeros filters. T
     H(z) = \frac{b_0 + b_1 z^{-1} + b_2 z ^{-2}}{1 + a_1 z_{-1} + a_2 z_{-2}}.
 \end{equation}
 
-If we multiply this by $z^2 / z^2$ we get 
+If we multiply this by $z^2 / z^2$ we get
 \begin{equation}
     H(z) = \frac{b_0 z^2 + b_1 z + b_2}{z^2 + a_1 z + a_2 z},
 \end{equation}
