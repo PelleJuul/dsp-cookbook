@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{bm}
@@ -7,6 +7,10 @@
 \usepackage{physics}
 \usepackage{cite}
 \usetikzlibrary{arrows.meta}
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
 
 %\usepackage[
 %  top=1.25in,
@@ -367,6 +371,24 @@ The basic effect looks like
 where $g\sqb{n}$ is the function determining the delay for sample $n$.
 
 You can easily get creative with the flanger effect by using feedback instead of delay, and by adding multiple delays.
+
+\subsection{Equal Power Panning and Fading}
+\index{Panning}
+\index{Fading}
+\index{Equal power panning}
+\index{Power}
+If you wish to do a fade between two signals or position a source in a stereo field, you cannot use a simple linear transition. Since humans perceive sound level in terms of \textit{power}, we will need to pan with equal power, rather than equal amplitude. This is done by using the equation
+\begin{equation}
+	\ysig = \sqrt{r} \cdot x_1\sqb{n} + \sqrt{1 - r} \cdot x_1\sqb{n},
+\end{equation}
+to fade between the signals $x_1\sqb{n}$ and $x_2\sqb{n}$ where $r$ is the amount of fade, defined between 0 and 1.
+
+To pan a signal between two outputs (one stereo channel) we use,
+\begin{align}
+	y_l\sqb{n} &= \sqrt{r} \cdot x\sqb{n} \\
+	y_r\sqb{n} &= \sqrt{1 - r} \cdot x\sqb{n},
+\end{align}
+where $r = 0.5$ is the center position.
 
 \subsection{Ring Modulation and Amplitude Modulation}
 \index{Ring modulation}
